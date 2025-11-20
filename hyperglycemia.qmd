@@ -2,4 +2,10 @@
 title: "hyperglycemia"
 format: html
 editor: visual
+embed-resources: true
 ---
+
+```{r}
+library(tidyverse)
+theme_set(theme_minimal())
+```
