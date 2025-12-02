@@ -4,12 +4,13 @@ format: pdf
 author: "Rishvitha, Brandon, Ahana, Samprokshana"
 editor: visual
 embed-resources: true
+echo: false 
 ---
 
 ```{r}
 library(tidyverse)
 theme_set(theme_minimal())
-
+echo = FALSE
 ```
 
 **Introduction**
