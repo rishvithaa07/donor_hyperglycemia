@@ -33,6 +33,26 @@ The data utilized in the statistical analysis is obtained from [Perez-Protto et 
 
 For the purpose of this statistical analysis, the variable of TWA glucose observations in the liver graft above 200 mg/dL is considered as donor hyperglycemia as per the foundational paper and other literature ([Oliveira et al., 2018; Perez-Protto et al., 2014)](https://www.zotero.org/google-docs/?Pb4STo). Delayed graft dysfunction, or the patient’s liver outcome, is categorized as either dysfunction by patient death or retransplant within one week peri-transplant, or by having “aspartate aminotransferase level greater than 2000 U/L or prothrombin time greater than 16 seconds any time between postoperative days 2 and 7” [(Perez-Protto et al., 2014, p.107)](https://www.zotero.org/google-docs/?uZRLB1). If either of these conditions were met, liver function was described as dysfunctional, and if either were not, liver function was described as functional. For this statistical analysis, TWA glucose levels, donor age, donor gender, recipient calculated model for end-stage liver disease (MELD) score, and donor intraoperative hemodynamic instability will serve as the explanatory variables, while delayed liver function is the response variable. Although the foundational paper aimed to analyze the relationship between the same two variables, the analysis in this paper can be used to confirm or deny the findings of Perez-Proto et al. (2014). By analyzing the association between TWA glucose levels and delayed liver function specifically, the statistical analysis conducted will provide the basis for future research on donor factors regarding recipient hepatic outcomes.
 
+**Methodology**
+
+Our question investigates whether donor hyperglycemia (TWA glucose \> 200 mg/dL) is associated with delayed liver function, represented through a binary outcome of either functional (Y = 0) or dysfunctional (Y=1). Since delayed graft functionality is binary, logistic regression must be used rather than linear regression which assumes a continuous outcome, and can predict values outside 0-1. Logistic regression allows us to estimate the probability of dysfunction based upon predictors, with p = P ( Y=1 \| predictors). This is modeled using log odds, expressed as a linear function of predictors and coefficients. Log-odds are then transformed back into p, for the probability of delayed liver function beind dysfunctional, p = e\^log odds / (1-e\^log odds). 
+
+Additionally, logistic regression allows for adjustment of multiple factors including donor age, donor sex, recipient MELD score, and intraoperative hemodynamic stability. Categorical variables are coded with reference codes and continuous variables to their median values. As a result, we receive an independent estimate of how donor hyperglycemia affects graft dysfunction. Using the odds ratio, we can learn how odds of dysfunction increase with a unit change in glucose while keeping other factors constant.
+
+\
+
+Logistic regression assumes that observations are independent, which is satisfied as each row of our dataset represents a unique donor to recipient transplant. 
+
+\
+
+The outcome variable is delayed graft dysfunction,  determined through either primary nonfunction (death of retransplant in the first preoperative week) or through biochemical dysfunction (AST greater than 2000 U/L or prothrombin time greater than 16 second during postoperative days 2-7). Delayed graft dysfunction is represented as a binary variable, coded as 
+
+0 = functional graft and 1 = dysfunctional graft. Therefore, the model estimates p = P(Y=1 \| predictors). Donor Hyperglycemia is our main exploratory variable, represented as time weighted average glucose level \> 200 mg/dL. Other exploratory variables include donor age (continuous), donor gender (categorial, reference = male), recipient MELD score (continuous), and donor intraoperative hemodynamic instability (binary). Our model applies the following equation:
+
+log(p/1-p​)=β0​+β1​(Hyperglycemia)+β2​(Donor Age)+β3​(Donor Gender (Female))+β4​(MELD)+β5​(Hemodynamic Instability)
+
+Using R studio, we apply the generalized linear model, setting family = binomial to use logistic regression, and inputting our variable names. Our study aims to determine the association between donor TWA glucose and odds of delayed graft function. 
+
 **Discussion**
 
 To summarize our findings, the modeled coefficients indicate a slight positive association between donor TWA glucose and odds of delayed graft function, at around 1.29 times higher odds per 100 mg/dL increase in donor TWA glucose. Donor age, donor sex, and recipient MELD also have positive but small effects on the odds of delayed graft function, while the donor intraoperative hemodynamic instability coefficient is slightly negative. These findings contribute to addressing the gap in research centered around the donor and suggest that improved glucose management in donors could strengthen peri-transplant outcomes for the recipient.
