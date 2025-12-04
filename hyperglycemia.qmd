@@ -1,10 +1,9 @@
 ---
 title: "Evaluation of the Effect of Donor Hyperglycemia on Recipient Peri-Transplant Liver Function"
-format: html
+format: pdf
 author: "Rishvitha, Brandon, Ahana, Samprokshana"
 editor: visual
 embed-resources: true
-theme: "lux"
 toc: true          
 number-sections: true
 echo: false
@@ -26,23 +25,23 @@ Current research has identified that critical environmental circumstances, such 
 
 Although many donor characteristics could create high-risk transplant circumstances, this paper conducts statistical analyses specifically on the association between donor hyperglycemia and recipient liver function, as it has been least explored. Since statistical modeling can provide sufficient or insufficient evidence of an association between donor hyperglycemia and liver function in the patient, the analyses in this paper are critical for developing a rich understanding behind one of the most prominent medical diseases globally. The insights from this analysis will directly inform the diagnosis of peri-operative liver function, help medical professionals create stricter guidelines for donors, and facilitate successful liver transplant outcomes overall.
 
-Although the foundational paper aimed to analyze the relationship between the same two variables, the analysis in this paper can be used to confirm or deny the findings of Perez-Proto et al. (2014). By analyzing the association between TWA glucose levels and delayed liver function specifically, the statistical analysis conducted will provide the basis for future research on donor factors regarding recipient hepatic outcomes. 
+Although the foundational paper aimed to analyze the relationship between the same two variables, the analysis in this paper can be used to confirm or deny the findings of [Perez-Protto et al. (2014)](https://www.zotero.org/google-docs/?f2a5U4). By analyzing the association between TWA glucose levels and delayed liver function specifically, the statistical analysis conducted will provide the basis for future research on donor factors regarding recipient hepatic outcomes. 
 
 # **Data**
 
-The data utilized in the statistical analysis is obtained from [Perez-Protto et al. (2014)](https://www.zotero.org/google-docs/?f2a5U4), which studied the relationship between donor hyperglycemia and liver function outcome to create glucose-management systems in donors. For the dataset, information on 591 liver transplants in the Cleveland Clinic was collected during a five-year period. Data regarding grafts, donors, and recipients was obtained while “grafts from living donors, donors after cardiac death, and transplants for which the donor’s glucose level was measured fewer than 2 times” were excluded [(Perez-Protto et al., 2014)](https://www.zotero.org/google-docs/?4EqW5y). While the dataset includes important information regarding the demographics and characteristics of both donors and patients, this analysis will primarily focus on the relationship between two variables: time-weighted average (TWA) of of glucose observations in the liver graft (glutwa) and delayed liver function (delayed_fn). Additionally, to produce more accurate results, donor age, donor gender, recipient calculated model for end-stage liver disease (MELD) score, and donor intraoperative hemodynamic instability will be accounted for. Recipient calculated MELD score represents how severe the state of a recipient’s liver disease is, with scores ranging from 6-40 and higher scores indicating a more severe condition. Intraoperative hemodynamic instability indicates that a donor had abnormal blood flow to organs during surgical operations.
+The data utilized in the statistical analysis is obtained from Perez-Protto et al. (2014), which studied the relationship between donor hyperglycemia and liver function outcome to create glucose-management systems in donors. For the dataset, information on 591 liver transplants in the Cleveland Clinic was collected during a five-year period. Data regarding grafts, donors, and recipients was obtained while “grafts from living donors, donors after cardiac death, and transplants for which the donor’s glucose level was measured fewer than 2 times” were excluded. While the dataset includes important information regarding the demographics and characteristics of both donors and patients, this analysis will primarily focus on the relationship between two variables: time-weighted average (TWA) of glucose observations in the liver graft and delayed liver function. Additionally, to produce more accurate results, donor age, donor gender, recipient calculated model for end-stage liver disease (MELD) score, and donor intraoperative hemodynamic instability will be accounted for. Recipient calculated MELD score represents how severe the state of a recipient’s liver disease is, with scores ranging from 6-40 and higher scores indicating a more severe condition. Intraoperative hemodynamic instability indicates that a donor had abnormal blood flow to organs during surgical operations.
 
 # **Methodology**
 
-Our question investigates whether donor hyperglycemia (TWA glucose \> 200 mg/dL) is associated with delayed liver function, represented through a binary outcome of either functional (Y = 0) or dysfunctional (Y=1). Since delayed graft functionality is binary, logistic regression must be used rather than linear regression which assumes a continuous outcome, and can predict values outside 0-1. Logistic regression allows us to estimate the probability of dysfunction based upon predictors, with p = P ( Y=1 \| predictors). This is modeled using log odds, expressed as a linear function of predictors and coefficients. Log-odds are then transformed back into p, for the probability of delayed liver function beind dysfunctional, p = e\^log odds / (1-e\^log odds). 
+Our question investigates whether donor hyperglycemia (TWA glucose \> 200 mg/dL) is associated with delayed liver function, represented through a binary outcome of either functional ($Y = 0$) or dysfunctional ($Y = 1$). Since delayed graft functionality is binary, logistic regression must be used rather than linear regression which assumes a continuous outcome, and can predict values outside 0 to 1. Logistic regression allows us to estimate the probability of dysfunction based upon predictors, with $\hat{p} = P(Y = 1 \mid \text{predictors})$. This is modeled using log odds, expressed as a linear function of predictors and coefficients. Log-odds are then transformed back into p. For the probability of delayed liver function being dysfunctional, $\hat{p}_i = \frac{1}{1 + e^{-x}}$ where $x$ is the predicted log-odds of delayed liver function. A threshold log-odds of greater than 0 (probability greater than 50%) would result in a prediction of delayed liver function ($Y = 1$).
 
-Additionally, logistic regression allows for adjustment of multiple factors including donor age, donor sex, recipient MELD score, and intraoperative hemodynamic stability. Categorical variables are coded with reference codes and continuous variables to their median values. As a result, we receive an independent estimate of how donor hyperglycemia affects graft dysfunction. Using the odds ratio, we can learn how odds of dysfunction increase with a unit change in glucose while keeping other factors constant. Logistic regression assumes that observations are independent, which is satisfied as each row of our dataset represents a unique donor to recipient transplant.
+Logistic regression assumes that observations are independent, which is satisfied as each row of our dataset represents a unique donor to recipient transplant, which should not influence other transplants.
 
-Our response variable is delayed graft dysfunction, or the patient’s liver outcome. This is categorized as either dysfunction by patient death or retransplant within one week peri-transplant, or by having “aspartate aminotransferase level greater than 2000 U/L or prothrombin time greater than 16 seconds any time between postoperative days 2 and 7” [(Perez-Protto et al., 2014, p.107)](https://www.zotero.org/google-docs/?uZRLB1). If either of these conditions were met, liver function was described as dysfunctional (coded as 1), and if either were not, liver function was described as functional (coded as 0), making delayed graft dysfunction a binary variable. Therefore, the model estimates p = P(Y=1 \| predictors). Donor hyperglycemia is our main exploratory variable, the variable of TWA glucose observations in the liver graft above 200 mg/dL is considered as donor hyperglycemia as per the foundational paper and other literature ([Oliveira et al., 2018; Perez-Protto et al., 2014)](https://www.zotero.org/google-docs/?Pb4STo). Other exploratory variables include donor age (continuous), donor gender (categorial, reference = male), recipient MELD score (continuous), and donor intraoperative hemodynamic instability (binary). Our model applies the following equation:
+Our response variable is delayed graft dysfunction, or the patient’s liver outcome. This is categorized as either dysfunction by patient death or retransplant within one week peri-transplant, or by having “aspartate aminotransferase level greater than 2000 U/L or prothrombin time greater than 16 seconds any time between postoperative days 2 and 7” [(Perez-Protto et al., 2014, p.107)](https://www.zotero.org/google-docs/?uZRLB1). If either of these conditions were met, liver function was described as dysfunctional (coded as 1), and if both were not, liver function was described as functional (coded as 0), making delayed graft dysfunction a binary variable. Donor hyperglycemia is our main exploratory variable, and the variable of TWA glucose observations in the liver graft above 200 mg/dL is considered as donor hyperglycemia as per the foundational paper and other literature ([Oliveira et al., 2018; Perez-Protto et al., 2014)](https://www.zotero.org/google-docs/?Pb4STo). Additionally, logistic regression allows for adjustment of multiple factors that may have a potential influence including donor age (continuous), donor gender (binary, reference = male), recipient MELD score (continuous), and donor intraoperative hemodynamic instability (binary, reference = stable). Our model applies the following equation:
 
 $\log\left(\frac{\hat{p}_i}{1-\hat{p}_i}\right) = \beta_0 + \beta_1 \text{TWA}_{i1} + \beta_2 \text{Age}_{i2} + \beta_3 \text{Is Female}_{i3} + \beta_4 \text{MELD}_{i4} + \beta_5 \text{Is Instable}_{i5}$
 
-Using R studio, we apply the generalized linear model, setting family = binomial to use logistic regression, and inputting our variable names. Our study aims to determine the association between donor TWA glucose and odds of delayed graft function. 
+Using R studio, we apply the generalized linear model, setting family = binomial to use logistic regression, and inputting our variable names. Our study aims to determine the association between donor TWA glucose and odds of delayed graft function.
 
 # **Results**
 
@@ -52,6 +51,8 @@ library(knitr)
 data <- read_csv("DonorHyperglycemia.csv")
 data$d_genderf <- factor(data$d_genderf, levels = c(0, 1), labels = c("Male", "Female"))
 data$hemo_instability <- ifelse(data$hemo_instability == 0, "No", "Yes")
+data <- data |>
+  rename(glucose_TWA = glutwa, donor_age = d_age, donor_gender = d_genderf, recipient_calc_MELD = r_meld_calc, delayed_liver_function = delayed_fn)
 ```
 
 ```{r}
@@ -67,7 +68,7 @@ Here, we see that most donors in the dataset have hemodynamic instability. It is
 
 ```{r}
 data |>
-  ggplot(aes(x = glutwa)) +
+  ggplot(aes(x = glucose_TWA)) +
   geom_histogram(color = "white", fill = "skyblue") +
   labs(title = "Distribution of TWA of Glucose Observations in Donors", x = "TWA of Glucose Observations", y = "Count") +
   theme_minimal(base_family = "serif") +
@@ -78,28 +79,17 @@ The distribution of TWA of glucose observations appear to be heavily right-skewe
 
 ```{r}
 data |>
-  ggplot(aes(x = d_age)) +
+  ggplot(aes(x = donor_age)) +
   geom_histogram(color = "white", fill = "skyblue") +
   labs(title = "Distribution of Age of Donors", x = "Age", y = "Count") +
   theme_minimal(base_family = "serif") +
   theme(plot.title = element_text(size = 14, face = "bold"))
 ```
 
-Interestingly, the distribution of age in the donors appear to be somewhat bimodal. This goes against intuition, which is that the distribution would be left-skewed (older people are more likely to die).
+Interestingly, the distribution of age in the donors appear to be somewhat bimodal. This goes against intuition, which is that the distribution would be left-skewed (older age is associated with increased chance of death).
 
 ```{r}
-data |>
-  ggplot(aes(x = r_meld_calc)) +
-  geom_histogram(color = "white", fill = "skyblue", bins = 20) +
-  labs(title = "Distribution of Calculated Recipient MELD Score", x = "MELD Score", y = "Count") +
-  theme_minimal(base_family = "serif") +
-  theme(plot.title = element_text(size = 14, face = "bold"))
-```
-
-As with the distribution of TWA of glucose observations, the distribution of recipient MELD score is heavily right-skewed. This indicates that a majority the recipients were in immediate need of a liver transplant.
-
-```{r}
-m1 <- glm(delayed_fn ~ glutwa + d_age + d_genderf + r_meld_calc + hemo_instability, 
+m1 <- glm(delayed_liver_function ~ glucose_TWA + donor_age + donor_gender + recipient_calc_MELD + hemo_instability, 
           data = data,
           family = "binomial")
 
@@ -120,10 +110,26 @@ $\beta_5:$ -0.048973 represents the predicted decrease in delayed liver graft fu
 
 # **Discussion**
 
-We examine the null hypothesis that 𝛽 = 0, that there is no association between donor hyperglycemia and delayed liver graft function in the recipient, while controlling for other predictors in the model, vs. the alternative hypothesis that 𝛽 ≠ 0, that there is an association between donor hyperglycemia and delayed liver graft function in the recipient. Under 𝐻0, the test statistic has a standard normal distribution. The value of the test statistic is 1.448, which corresponds to a p-value of approximately 0.148. Thus, we fail to reject the null hypothesis at the 𝛼 = 0.05 level. There is not sufficient evidence to suggest differential (log) odds of delayed liver graft function in the recipient based on donor hyperglycemia, while adjusting for the other variables in the model. These findings contribute to addressing the gap in research centered around the donor and suggest that improved glucose management in donors could strengthen peri-transplant outcomes for the recipient.
+We examine the null hypothesis that $\beta = 0$, or there is no association between donor hyperglycemia and delayed liver graft function in the recipient, while controlling for other predictors in the model, vs. the alternative hypothesis that $\beta \neq 0$, that there is an association between donor hyperglycemia and delayed liver graft function in the recipient. Under $H_0$, the test statistic has a standard normal distribution. The z-value test statistic is 1.448, which corresponds to a p-value of approximately 0.148. Thus, we fail to reject the null hypothesis at the $\alpha = 0.05$ level. There is not sufficient evidence to suggest a difference in delayed liver graft function in the recipient based on donor hyperglycemia, while adjusting for the other variables in the model. These findings contribute to addressing the gap in research centered around the donor and indicates that there is no evidence to suggest improved glucose management in donors could strengthen peri-transplant outcomes for the recipient.
 
-The goal of our research wasn’t met, as we intended to assess the relationship between donor hyperglycemia and liver function in the patient, and weren’t able to find conclusive evidence. Our initial hypothesis remains that higher donor TWA glucose is associated with increased log-odds of delayed graft function, assuming that donor hyperglycemia causes detrimental liver effects for the recipient. This data was obtained while all other variables were held constant, however the experiment also manipulated other factors of the donor and recipient to assess delayed liver graft function. We noticed that an increase in donor age, donor’s sex being female, and a higher recipient MELD score led to a predicted higher log-odds of delayed liver graft function. Donor intraoperative hemodynamic instability, on the other hand, correlated with a decreased predicted log-odds of delayed liver graft function. However, all these variables had p values higher than 𝛼 = 0.05 and are not statistically significant, so more research will be needed.
+To summarize, we examined the relationship between donor hyperglycemia and liver function in the patient, and weren’t able to find conclusive evidence favoring a relationship. Our initial hypothesis remains that higher donor TWA glucose is associated with increased log-odds of delayed graft function holding all other variables constant, assuming that donor hyperglycemia causes detrimental liver effects for the recipient. This data was obtained while all other variables were held constant. However, the experiment also manipulated other factors of the donor and recipient to assess delayed liver graft function. We noticed that an increase in donor age, donor’s sex being female, and a higher recipient MELD score led to a predicted higher log-odds of delayed liver graft function. Donor intraoperative hemodynamic instability, on the other hand, correlated with a decreased predicted log-odds of delayed liver graft function. However, all these variables had p-values higher than $\alpha = 0.05$ and are therefore not statistically significant, so more research will be needed.
 
-We felt our methodology was largely appropriate, as it allows us to determine the probabilities of binary outcomes, such as the one we are observing through donor hyperglycemia. Additionally, since the log odds ensure probabilities fall between 0 and 1, this method allows us to have a more standardized way of analyzing data and holding variables constant while we observe others. However, this isn't to say there wasn't room for improvement. Some drawbacks of the log-odds model we used were that it assumes linearity and that it isn't able to adjust for the effect of multiple variables at once. Additionally, the inclusion of this model is not as compatible with a lay audience as the comparisons are less intuitive. There are also potential flaws within our data, as we are not completely sure if the data was collected accurately and there may be selection bias as donors with incomplete glucose data were not included in the data set analysis.
+We felt our methodology was largely appropriate, as it allows us to determine the probabilities of binary outcomes, such as the one we are observing through donor hyperglycemia. Additionally, since the log odds ensure probabilities fall between 0 and 1, this method allows us to have a more standardized way of analyzing data and holding variables constant while we observe others. However, this isn't to say there wasn't room for improvement. Some drawbacks of the log-odds model we used were that it assumes linearity in the log-odds, which may not actually be the case. Additionally, the inclusion of this model is not as compatible with a lay audience as the comparisons are less intuitive. There are also potential flaws within our data, as we are not completely sure if the data was collected accurately and there may be selection bias as donors with incomplete glucose data were not included in the data set analysis.
 
-If we were to repeat this study or obtain our own data, we would take several steps to have a more robust scientific conclusion. Firstly, we wouldn't assume linearity and might try to fit nonlinear models to our data to try to find the best possible fit and prediction. Additionally, we would perform sensitivity analyses to ensure that small changes in variables or data collection wouldn't alter the data significantly. Lastly, if feasible, we would want to include more variables within our exploration so that we can predict potential confounding factors and see a wider range of potential changes to liver function. Some of these new variables may include the donor's history of diabetes and cause of death, to better understand their health levels, as well as more information about the liver graft, such as preservation techniques and weight ratios to limit confounding variables. Altogether, these changes could allow for us to better our understanding of this issue in the future and promote research towards manipulating donor factors to prioritize healthy liver graft function.
+If we were to repeat this study or obtain our own data, we would take several steps to have a more robust scientific conclusion. Firstly, we wouldn't assume linearity in the log-odds and might try to fit nonlinear models to our data to try to find the best possible fit and prediction. Additionally, we would perform sensitivity analyses to ensure that small changes in variables or data collection wouldn't alter the data significantly. Lastly, if feasible, we would want to include more variables within our exploration so that we can predict potential confounding factors and see a wider range of potential changes to liver function. Some of these new variables may include the donor's history of diabetes and cause of death, to better understand their health levels, as well as more information about the liver graft, such as preservation techniques and weight ratio. Altogether, these changes could allow for us to better our understanding of this issue in the future and promote research towards examining donor factors to prioritize healthy liver graft function.
+
+# **References**
+
+[Devarbhavi, H., Asrani, S. K., Arab, J. P., Nartey, Y. A., Pose, E., & Kamath, P. S. (2023). Global burden of liver disease: 2023 update. Journal of Hepatology, 79(2), 516–537. https://doi.org/10.1016/j.jhep.2023.03.017 ](https://www.zotero.org/google-docs/?xN3TBg)
+
+[Khalil, A., Quaglia, A., Gélat, P., Saffari, N., Rashidi, H., & Davidson, B. (2023). New Developments and Challenges in Liver Transplantation. Journal of Clinical Medicine, 12(17), 5586. https://doi.org/10.3390/jcm12175586 ](https://www.zotero.org/google-docs/?xN3TBg)
+
+[Liu, Y.-B., & Chen, M.-K. (2022). Epidemiology of liver cirrhosis and associated complications: Current knowledge and future directions. World Journal of Gastroenterology, 28(41), 5910–5930. https://doi.org/10.3748/wjg.v28.i41.5910 ](https://www.zotero.org/google-docs/?xN3TBg)
+
+[Oliveira, R. A., Turrini, R. N. T., & Poveda, V. de B. (2018). Risk factors for development of surgical site infections among liver transplantation recipients: An integrative literature review. American Journal of Infection Control, 46(1), 88–93. https://doi.org/10.1016/j.ajic.2017.05.021 ](https://www.zotero.org/google-docs/?xN3TBg)
+
+[Perez-Protto, S. E., Reynolds, L. F., Dalton, J. E., Taketomi, T., Irefin, S. A., Parker, B. M., Quintini, C., & Sessler, D. I. (2014). Deceased Donor Hyperglycemia and Liver Graft Dysfunction. Progress in Transplantation, 24(1), 106–112. https://doi.org/10.7182/pit2014737 ](https://www.zotero.org/google-docs/?xN3TBg)
+
+[Pischke, S., Lege, M. C., von Wulffen, M., Galante, A., Otto, B., Wehmeyer, M. H., Herden, U., Fischer, L., Nashan, B., Lohse, A. W., & Sterneck, M. (2017). Factors associated with long-term survival after liver transplantation: A retrospective cohort study. World Journal of Hepatology, 9(8), 427–435. https://doi.org/10.4254/wjh.v9.i8.427 ](https://www.zotero.org/google-docs/?xN3TBg)
+
+[Rameshi, Y., Dashti‐Khavidaki, S., Rabizadeh, S., Alimadadi, M., Moradi, A., Kasraianfard, A., Jafarian, A., & Ahmadinejad, Z. (2025). Peri‐Liver Transplant Hyperglycemia: Mechanisms, Associated Factors, Consequences, and Management – A Systematic Review. Endocrinology, Diabetes & Metabolism, 8(5), e70107. https://doi.org/10.1002/edm2.70107 ](https://www.zotero.org/google-docs/?xN3TBg)
