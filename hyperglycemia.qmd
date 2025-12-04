@@ -37,11 +37,13 @@ Additionally, logistic regression allows for adjustment of multiple factors incl
 
 Logistic regression assumes that observations are independent, which is satisfied as each row of our dataset represents a unique donor to recipient transplant. 
 
-The outcome variable is delayed graft dysfunction, determined through either primary nonfunction (death of retransplant in the first preoperative week) or through biochemical dysfunction (AST greater than 2000 U/L or prothrombin time greater than 16 second during postoperative days 2-7). Delayed graft dysfunction is represented as a binary variable, coded as 0 = functional graft and 1 = dysfunctional graft. Therefore, the model estimates p = P(Y=1 \| predictors). Donor Hyperglycemia is our main exploratory variable, represented as time weighted average glucose level \> 200 mg/dL. Other exploratory variables include donor age (continuous), donor gender (categorical, reference = male), recipient MELD score (continuous), and donor intraoperative hemodynamic instability (binary). Our model applies the following equation:
+The outcome variable is delayed graft dysfunction, determined through either primary nonfunction (death of retransplant in the first preoperative week) or through biochemical dysfunction (AST greater than 2000 U/L or prothrombin time greater than 16 second during postoperative days 2-7). Delayed graft dysfunction is represented as a binary variable, coded as 
+
+0 = functional graft and 1 = dysfunctional graft. Therefore, the model estimates p = P(Y=1 \| predictors). Donor Hyperglycemia is our main exploratory variable, represented as time weighted average glucose level \> 200 mg/dL. Other exploratory variables include donor age (continuous), donor gender (categorical, reference = male), recipient MELD score (continuous), and donor intraoperative hemodynamic instability (binary). Our model applies the following equation:
 
 $\log\left(\frac{\hat{p}_i}{1-\hat{p}_i}\right) = \beta_0 + \beta_1 \text{TWA}_{i1} + \beta_2 \text{Age}_{i2} + \beta_3 \text{Is Female}_{i3} + \beta_4 \text{MELD}_{i4} + \beta_5 \text{Is Instable}_{i5}$
 
-Using R studio, we fitted the generalized linear model with our selected predictor variables. We used family = binomial to model the outcome with a binomial distribution, allowing us to fit the model using logistic regression. This allows us to determine the association between donor TWA glucose and odds of delayed graft function.
+Using R studio, we apply the generalized linear model, setting family = binomial to use logistic regression, and inputting our variable names. Our study aims to determine the association between donor TWA glucose and odds of delayed graft function.
 
 # **Results**
 
@@ -52,17 +54,6 @@ data <- read_csv("DonorHyperglycemia.csv")
 data$d_genderf <- factor(data$d_genderf, levels = c(0, 1), labels = c("Male", "Female"))
 data$hemo_instability <- ifelse(data$hemo_instability == 0, "No", "Yes")
 ```
-
-```{r}
-gender <- data |>
-group_by(d_genderf) |>
-summarize(Observations = n()) |>
-arrange(desc(Observations))
-
-kable(gender, format = "html", caption = "<span style='font-size:18px;'>Number of Donors by Gender</span>")
-```
-
-We can see that while there are more males than females, there is a solid sample size of each gender.
 
 ```{r}
 instability <- data |>
