@@ -1,10 +1,16 @@
 ---
 title: "Evaluation of the Effect of Donor Hyperglycemia on Recipient Peri-Transplant Liver Function"
-format: pdf
+format: html
 author: "Rishvitha, Brandon, Ahana, Samprokshana"
 editor: visual
 embed-resources: true
-echo: false 
+theme: "lux"
+toc: true          
+number-sections: true
+echo: false
+warning: false
+message: false
+error: false
 ---
 
 ```{r, message=FALSE, warning=FALSE}
