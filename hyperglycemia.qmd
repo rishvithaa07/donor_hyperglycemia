@@ -39,7 +39,7 @@ Logistic regression assumes that observations are independent, which is satisfie
 
 The outcome variable is delayed graft dysfunction, determined through either primary nonfunction (death of retransplant in the first preoperative week) or through biochemical dysfunction (AST greater than 2000 U/L or prothrombin time greater than 16 second during postoperative days 2-7). Delayed graft dysfunction is represented as a binary variable, coded as 
 
-0 = functional graft and 1 = dysfunctional graft. Therefore, the model estimates p = P(Y=1 \| predictors). Donor Hyperglycemia is our main exploratory variable, represented as time weighted average glucose level \> 200 mg/dL. Other exploratory variables include donor age (continuous), donor gender (categorial, reference = male), recipient MELD score (continuous), and donor intraoperative hemodynamic instability (binary). Our model applies the following equation:
+0 = functional graft and 1 = dysfunctional graft. Therefore, the model estimates p = P(Y=1 \| predictors). Donor Hyperglycemia is our main exploratory variable, represented as time weighted average glucose level \> 200 mg/dL. Other exploratory variables include donor age (continuous), donor gender (categorical, reference = male), recipient MELD score (continuous), and donor intraoperative hemodynamic instability (binary). Our model applies the following equation:
 
 $\log\left(\frac{\hat{p}_i}{1-\hat{p}_i}\right) = \beta_0 + \beta_1 \text{TWA}_{i1} + \beta_2 \text{Age}_{i2} + \beta_3 \text{Is Female}_{i3} + \beta_4 \text{MELD}_{i4} + \beta_5 \text{Is Instable}_{i5}$
 
