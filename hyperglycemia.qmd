@@ -7,10 +7,9 @@ embed-resources: true
 echo: false 
 ---
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 theme_set(theme_minimal())
-echo = FALSE
 ```
 
 # **Introduction**
